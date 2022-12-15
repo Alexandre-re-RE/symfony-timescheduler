@@ -40,6 +40,10 @@ class Project
     #[ORM\ManyToOne(inversedBy: 'projects')]
     private ?Client $client = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Status $status = null;
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
@@ -166,6 +170,18 @@ class Project
     public function setClient(?Client $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
