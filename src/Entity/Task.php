@@ -23,22 +23,22 @@ class Task
     private ?int $priority = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $start_date = null;
+    private ?\DateTimeImmutable $startDate = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $end_date = null;
+    private ?\DateTimeImmutable $endDate = null;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $real_start_date = null;
+    private ?\DateTimeImmutable $realStartDate = null;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $real_end_date = null;
+    private ?\DateTimeImmutable $realEndDate = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null;
+    private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $updated_at = null;
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
     #[ORM\JoinColumn(nullable: false)]
@@ -94,72 +94,72 @@ class Task
 
     public function getStartDate(): ?\DateTimeImmutable
     {
-        return $this->start_date;
+        return $this->startDate;
     }
 
-    public function setStartDate(\DateTimeImmutable $start_date): self
+    public function setStartDate(\DateTimeImmutable $startDate): self
     {
-        $this->start_date = $start_date;
+        $this->startDate = $startDate;
 
         return $this;
     }
 
     public function getEndDate(): ?\DateTimeImmutable
     {
-        return $this->end_date;
+        return $this->endDate;
     }
 
-    public function setEndDate(\DateTimeImmutable $end_date): self
+    public function setEndDate(\DateTimeImmutable $endDate): self
     {
-        $this->end_date = $end_date;
+        $this->endDate = $endDate;
 
         return $this;
     }
 
     public function getRealStartDate(): ?\DateTimeImmutable
     {
-        return $this->real_start_date;
+        return $this->realStartDate;
     }
 
-    public function setRealStartDate(?\DateTimeImmutable $real_start_date): self
+    public function setRealStartDate(?\DateTimeImmutable $realStartDate): self
     {
-        $this->real_start_date = $real_start_date;
+        $this->realStartDate = $realStartDate;
 
         return $this;
     }
 
     public function getRealEndDate(): ?\DateTimeImmutable
     {
-        return $this->real_end_date;
+        return $this->realEndDate;
     }
 
-    public function setRealEndDate(?\DateTimeImmutable $real_end_date): self
+    public function setRealEndDate(?\DateTimeImmutable $realEndDate): self
     {
-        $this->real_end_date = $real_end_date;
+        $this->realEndDate = $realEndDate;
 
         return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
@@ -199,4 +199,5 @@ class Task
 
         return $this;
     }
+
 }
