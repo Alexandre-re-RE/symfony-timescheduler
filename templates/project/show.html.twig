@@ -1,46 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Project{% endblock %}
+{% block title %}Projet{% endblock %}
 
 {% block body %}
-    <h1>Project</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ project.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ project.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ project.description }}</td>
-            </tr>
-            <tr>
-                <th>StartDate</th>
-                <td>{{ project.startDate ? project.startDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>EndDate</th>
-                <td>{{ project.endDate ? project.endDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>RealStartDate</th>
-                <td>{{ project.realStartDate ? project.realStartDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>RealEndDate</th>
-                <td>{{ project.realEndDate ? project.realEndDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_project_index') }}">back to list</a>
-
-    <a href="{{ path('app_project_edit', {'id': project.id}) }}">edit</a>
-
-    {{ include('project/_delete_form.html.twig') }}
+    <div class="pt-4">
+        <h1>Projet</h1>
+        <div class="mb-2">
+            <a href="{{ path('app_project_index') }}" class="btn btn-outline-primary">Retour à la liste</a>
+            <a href="{{ path('app_project_edit', {'id': project.id}) }}" class="btn btn-outline-secondary">Modifier</a>
+            {{ include('project/_delete_form.html.twig') }}
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>#</th>
+                            <td>{{ project.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nom</th>
+                            <td>{{ project.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Desription</th>
+                            <td>{{ project.description|nl2br }}</td>
+                        </tr>
+                        <tr>
+                            <th>Client</th>
+                            <td>{{ project.client.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>{{ project.status.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date de début</th>
+                            <td>{{ project.startDate ? project.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date de fin</th>
+                            <td>{{ project.endDate ? project.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+

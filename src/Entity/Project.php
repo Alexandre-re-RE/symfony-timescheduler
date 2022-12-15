@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -47,11 +48,14 @@ class Project
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
+
+        $this->startDate = new DateTimeImmutable();
+        $this->endDate = new DateTimeImmutable();
     }
 
     public function __toString()
     {
-        
+
         return $this->name;
     }
 
@@ -185,6 +189,4 @@ class Project
 
         return $this;
     }
-
-
 }

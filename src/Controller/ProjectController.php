@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Entity\Status;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,14 +19,18 @@ class ProjectController extends AbstractController
     public function index(ProjectRepository $projectRepository): Response
     {
         return $this->render('project/index.html.twig', [
-            'projects' => $projectRepository->findAll(),
+            'projects' => $projectRepository->findAllWithStatusAndClient(),
         ]);
     }
 
     #[Route('/new', name: 'app_project_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ProjectRepository $projectRepository): Response
+    public function new(Request $request, ProjectRepository $projectRepository, EntityManagerInterface $em): Response
     {
-        $project = new Project();
+        /** @var \App\Repository\StatusRepository $statusRepository */
+        $statusRepository = $em->getRepository(Status::class);
+        $project = (new Project())
+            ->setStatus($statusRepository->findOneBy(['code' => 'WAITING']));
+
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
@@ -41,8 +47,10 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_project_show', methods: ['GET'])]
-    public function show(Project $project): Response
+    public function show($id, ProjectRepository $projectRepository): Response
     {
+        $project = $projectRepository->findOneWithStatusAndClient($id);
+
         return $this->render('project/show.html.twig', [
             'project' => $project,
         ]);
@@ -69,7 +77,7 @@ class ProjectController extends AbstractController
     #[Route('/{id}', name: 'app_project_delete', methods: ['POST'])]
     public function delete(Request $request, Project $project, ProjectRepository $projectRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $project->getId(), $request->request->get('_token'))) {
             $projectRepository->remove($project, true);
         }
 

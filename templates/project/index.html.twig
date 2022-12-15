@@ -3,43 +3,49 @@
 {% block title %}Project index{% endblock %}
 
 {% block body %}
-    <h1>Project index</h1>
+    <div class="pt-4">
+        <h1>Liste des projets</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>StartDate</th>
-                <th>EndDate</th>
-                <th>RealStartDate</th>
-                <th>RealEndDate</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for project in projects %}
-            <tr>
-                <td>{{ project.id }}</td>
-                <td>{{ project.name }}</td>
-                <td>{{ project.description }}</td>
-                <td>{{ project.startDate ? project.startDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ project.endDate ? project.endDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ project.realStartDate ? project.realStartDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ project.realEndDate ? project.realEndDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_project_show', {'id': project.id}) }}">show</a>
-                    <a href="{{ path('app_project_edit', {'id': project.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_project_new') }}">Create new</a>
+        <div class="card">
+            <div class="card-header">
+                <a href="{{ path('app_project_new') }}" class="float-end text-decoration-none">Create new</a>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nom</th>
+                            <th>Client</th>
+                            <th>Status</th>
+                            <th>Date de début</th>
+                            <th>Date de fin</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for project in projects %}
+                        <tr>
+                            <td>{{ project.id }}</td>
+                            <td>{{ project.name }}</td>
+                            <td>{{ project.client.name }}</td>
+                            <td>{{ project.status.name }}</td>
+                            <td>{{ project.startDate ? project.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ project.endDate ? project.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>
+                                <a href="{{ path('app_project_show', {'id': project.id}) }}" class="text-black"><i class="fas fa-eye"></i></a>
+                                <a href="{{ path('app_project_edit', {'id': project.id}) }}" class="text-black"><i class="fas fa-edit"></i></a>
+                                {{ include('project/_delete_form.html.twig', {icon: true}) }}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}
