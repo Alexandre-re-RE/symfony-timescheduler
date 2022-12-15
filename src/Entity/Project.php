@@ -23,16 +23,16 @@ class Project
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $start_date = null;
+    private ?\DateTimeImmutable $startDate = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $end_date = null;
+    private ?\DateTimeImmutable $endDate = null;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $real_start_date = null;
+    private ?\DateTimeImmutable $realStartDate = null;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $real_end_date = null;
+    private ?\DateTimeImmutable $realEndDate = null;
 
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: Task::class)]
     private Collection $tasks;
@@ -76,48 +76,48 @@ class Project
 
     public function getStartDate(): ?\DateTimeImmutable
     {
-        return $this->start_date;
+        return $this->startDate;
     }
 
-    public function setStartDate(\DateTimeImmutable $start_date): self
+    public function setStartDate(\DateTimeImmutable $startDate): self
     {
-        $this->start_date = $start_date;
+        $this->startDate = $startDate;
 
         return $this;
     }
 
     public function getEndDate(): ?\DateTimeImmutable
     {
-        return $this->end_date;
+        return $this->endDate;
     }
 
-    public function setEndDate(\DateTimeImmutable $end_date): self
+    public function setEndDate(\DateTimeImmutable $endDate): self
     {
-        $this->end_date = $end_date;
+        $this->endDate = $endDate;
 
         return $this;
     }
 
     public function getRealStartDate(): ?\DateTimeImmutable
     {
-        return $this->real_start_date;
+        return $this->realStartDate;
     }
 
-    public function setRealStartDate(?\DateTimeImmutable $real_start_date): self
+    public function setRealStartDate(?\DateTimeImmutable $realStartDate): self
     {
-        $this->real_start_date = $real_start_date;
+        $this->realStartDate = $realStartDate;
 
         return $this;
     }
 
     public function getRealEndDate(): ?\DateTimeImmutable
     {
-        return $this->real_end_date;
+        return $this->realEndDate;
     }
 
-    public function setRealEndDate(?\DateTimeImmutable $real_end_date): self
+    public function setRealEndDate(?\DateTimeImmutable $realEndDate): self
     {
-        $this->real_end_date = $real_end_date;
+        $this->realEndDate = $realEndDate;
 
         return $this;
     }
@@ -163,4 +163,6 @@ class Project
 
         return $this;
     }
+
+
 }

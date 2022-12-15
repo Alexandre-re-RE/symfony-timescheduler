@@ -19,10 +19,10 @@ class Client
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null;
+    private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $updated_at = null;
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Project::class)]
     private Collection $projects;
@@ -49,29 +49,6 @@ class Client
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
-    {
-        $this->updated_at = $updated_at;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Project>
@@ -99,6 +76,30 @@ class Client
                 $project->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
