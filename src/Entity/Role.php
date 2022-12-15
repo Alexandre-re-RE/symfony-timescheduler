@@ -25,6 +25,10 @@ class Role
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    public function __toString()
+    {
+        return $this->code;
+    }
     public function getId(): ?int
     {
         return $this->id;

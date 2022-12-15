@@ -49,6 +49,11 @@ class User
         $this->tasks = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->firstname;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
