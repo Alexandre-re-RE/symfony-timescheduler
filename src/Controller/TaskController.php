@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Task;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
+use DateTime;
+use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +27,7 @@ class TaskController extends AbstractController
     public function new(Request $request, TaskRepository $taskRepository): Response
     {
         $task = new Task();
+        $task->setCreatedAt(new DateTimeImmutable());
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
@@ -52,6 +55,7 @@ class TaskController extends AbstractController
     public function edit(Request $request, Task $task, TaskRepository $taskRepository): Response
     {
         $form = $this->createForm(TaskType::class, $task);
+        $task->setUpdatedAt(new DateTimeImmutable());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
