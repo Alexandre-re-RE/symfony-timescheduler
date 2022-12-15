@@ -20,6 +20,7 @@
 ###< symfony/phpunit-bridge ###
 .idea
 .vscode
+.env
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
