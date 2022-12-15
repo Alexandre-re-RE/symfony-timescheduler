@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\Status;
 use App\Form\StatusType;
 use App\Repository\StatusRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/status')]
+#[IsGranted('IS_AUTHENTICATED_FULLY')]
 class StatusController extends AbstractController
 {
     #[Route('/', name: 'app_status_index', methods: ['GET'])]
@@ -69,7 +71,7 @@ class StatusController extends AbstractController
     #[Route('/{id}', name: 'app_status_delete', methods: ['POST'])]
     public function delete(Request $request, Status $status, StatusRepository $statusRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$status->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $status->getId(), $request->request->get('_token'))) {
             $statusRepository->remove($status, true);
         }
 
