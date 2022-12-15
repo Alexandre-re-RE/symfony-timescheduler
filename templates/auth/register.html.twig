@@ -1,0 +1,47 @@
+{% extends "layouts/auth.html.twig" %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<div class="d-flex flex-column align-items-center justify-content-center h-100">
+	<div class="card w-100" style="max-width: 600px;">
+		<div class="card-header">Inscription</div>
+		<div class="card-body">
+			{{ form_start(form) }}
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-floating mb-3">
+							{{ form_widget(form.firstname) }}
+							{{ form_label(form.firstname) }}
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="form-floating mb-3">
+							{{ form_widget(form.lastname) }}
+							{{ form_label(form.lastname) }}
+						</div>
+					</div>
+				</div>
+				<div class="form-floating mb-3">
+					{{ form_widget(form.username) }}
+					{{ form_label(form.username) }}
+				</div>
+				<div class="form-floating mb-3">
+					{{ form_widget(form.email) }}
+					{{ form_label(form.email) }}
+				</div>
+				<div class="form-floating mb-3">
+					{{ form_widget(form.password.first) }}
+					{{ form_label(form.password.first) }}
+				</div>
+				<div class="form-floating mb-3">
+					{{ form_widget(form.password.second) }}
+					{{ form_label(form.password.second) }}
+				</div>
+				<span>Déjà un compte ? <a href="{{ path('app_login') }}" class="text-decoration-none">Se connecter</a></span>
+				<button type="submit" class="btn btn-dark float-end">Valider</button>
+			{{ form_end(form) }}
+		</div>
+	</div>
+</div>
+{% endblock %}

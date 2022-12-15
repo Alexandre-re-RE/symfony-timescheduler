@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}App{% endblock %} - Timescheduler</title>
+        {% block stylesheets %}
+                {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+</head>
+
+<body class="bg-light vh-100">
+    <main role="main" class="h-100">
+        <div class="container h-100">
+            {% block body %}{% endblock %}
+        </div>
+    </main>
+</body>
+
+</html>
