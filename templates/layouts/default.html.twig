@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}App{% endblock %} - Timescheduler</title>
+        {% block stylesheets %}
+                {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+    {{ include('elements/header.html.twig') }}
+    <div class="container-fluid">
+        <div class="row">
+            {{ include('elements/sidebar.html.twig') }}
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                {% block body %}{% endblock %}
+            </main>
+        </div>
+    </div>
+    </body>
+</html>
