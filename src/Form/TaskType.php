@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Task;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,12 +16,21 @@ class TaskType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('priority')
-            ->add('start_date')
-            ->add('end_date')
-            ->add('real_start_date')
-            ->add('real_end_date')
-            ->add('created_at')
-            ->add('updated_at')
+            ->add('startDate', DateType::class, [
+                'widget' => 'single_text'
+            ])
+            
+            ->add('endDate', DateType::class, [
+                'widget' => 'single_text'
+            ])
+            ->add('realStartDate', DateType::class, [
+                'widget' => 'single_text'
+            ])
+            ->add('realEndDate', DateType::class, [
+                'widget' => 'single_text'
+            ])
+            // ->add('createdAt')
+            // ->add('updatedAt')
             ->add('user')
             ->add('project')
             ->add('status')
