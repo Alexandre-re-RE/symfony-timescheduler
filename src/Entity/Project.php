@@ -37,6 +37,9 @@ class Project
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: Task::class)]
     private Collection $tasks;
 
+    #[ORM\ManyToOne(inversedBy: 'projects')]
+    private ?Client $client = null;
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
@@ -145,6 +148,18 @@ class Project
                 $task->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
 
         return $this;
     }
