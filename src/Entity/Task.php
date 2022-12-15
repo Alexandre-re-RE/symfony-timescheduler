@@ -188,12 +188,12 @@ class Task
         return $this;
     }
 
-    public function getStatus(): ?status
+    public function getStatus(): ?Status
     {
         return $this->status;
     }
 
-    public function setStatus(?status $status): self
+    public function setStatus(?Status $status): self
     {
         $this->status = $status;
 
