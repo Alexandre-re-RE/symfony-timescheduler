@@ -4,9 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Entity\Status;
+use App\Entity\Task;
+use App\Entity\User;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
+use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,12 +53,24 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_project_show', methods: ['GET'])]
-    public function show($id, ProjectRepository $projectRepository): Response
+    public function show($id, ProjectRepository $projectRepository, ManagerRegistry $doctrine): Response
     {
+        /** @var User $currentUser */
+        $currentUser = $this->getUser();
         $project = $projectRepository->findOneWithStatusAndClient($id);
+
+        $taskRepository = $doctrine->getRepository(Task::class);
+
+        $taskAssignedToCurrentUser = $taskRepository->findBy([
+            'user' => $currentUser->getId(),
+            'project' => $project->getId()
+        ]);
+
+//        dd($taskAssignedToCurrentUser);
 
         return $this->render('project/show.html.twig', [
             'project' => $project,
+            'tasks' => $taskAssignedToCurrentUser
         ]);
     }
 

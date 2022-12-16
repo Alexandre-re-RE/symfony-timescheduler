@@ -46,6 +46,19 @@
                 </table>
             </div>
         </div>
+
+        <h3>Vos tâche: </h3>
+
+        {% if tasks is defined and tasks is not null %}
+            <ul>
+                {% for task in tasks %}
+                    <li>{{ task.title }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>aucune tâche assiger pour le moment</p>
+        {% endif %}
+
     </div>
 {% endblock %}
 
