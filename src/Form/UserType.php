@@ -2,10 +2,13 @@
 
 namespace App\Form;
 
+
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 
 class UserType extends AbstractType
 {
@@ -17,8 +20,14 @@ class UserType extends AbstractType
             ->add('username')
             ->add('password')
             ->add('email')
-            ->add('createdAt')
-            ->add('updatedAt')
+            ->add('createdAt',DateType::class, [
+                'widget' => 'single_text',
+                "input"  => "datetime_immutable"
+            ])
+            ->add('updatedAt',DateType::class, [
+                'widget' => 'single_text',
+                "input"  => "datetime_immutable"
+            ])
             ->add('role')
         ;
     }

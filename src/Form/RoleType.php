@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Role;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,8 +15,14 @@ class RoleType extends AbstractType
         $builder
             ->add('code')
             ->add('name')
-            ->add('createdAt')
-            ->add('updatedAt')
+            ->add('createdAt',DateType::class, [
+                'widget' => 'single_text',
+                "input"  => "datetime_immutable"
+            ])
+            ->add('updatedAt',DateType::class, [
+                'widget' => 'single_text',
+                "input"  => "datetime_immutable"
+            ])
         ;
     }
 
