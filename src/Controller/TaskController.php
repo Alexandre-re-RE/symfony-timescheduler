@@ -7,7 +7,6 @@ use App\Entity\Task;
 use App\Entity\User;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
-use DateTime;
 use DateTimeImmutable;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -100,11 +99,10 @@ class TaskController extends AbstractController
 
         $canMoveTaskStatus = $this->isTaskOfCurrentUserAndTaskNotFinish($task, $user);
 
-        if($canMoveTaskStatus) {
+        if ($canMoveTaskStatus) {
             $task->setStatus($statusStart);
             $doctrine->getManager()->flush();
         } else {
-
         }
     }
 
@@ -121,11 +119,10 @@ class TaskController extends AbstractController
 
         $canMoveTaskStatus = $this->isTaskOfCurrentUserAndTaskNotFinish($task, $user);
 
-        if($canMoveTaskStatus) {
+        if ($canMoveTaskStatus) {
             $task->setStatus($statusStart);
             $doctrine->getManager()->flush();
         } else {
-
         }
     }
 
@@ -142,11 +139,10 @@ class TaskController extends AbstractController
 
         $canMoveTaskStatus = $this->isTaskOfCurrentUserAndTaskNotFinish($task, $user);
 
-        if($canMoveTaskStatus) {
+        if ($canMoveTaskStatus) {
             $task->setStatus($statusStart);
             $doctrine->getManager()->flush();
         } else {
-
         }
     }
 
@@ -160,13 +156,13 @@ class TaskController extends AbstractController
         $taskMouvable = true;
 
         //check que la tache appartient bien a l'utilisateur actuel
-        if($task->getUser()->getId() !== $user->getId()) {
+        if ($task->getUser()->getId() !== $user->getId()) {
             $taskMouvable = false;
             dd('ce nest pas vôtre tâche');
         }
 
         //verification que la tache n'est pas terminer
-        if($task->getStatus()->getCode() === 'FINISH') {
+        if ($task->getStatus()->getCode() === 'FINISH') {
             $taskMouvable = false;
             dd('on ne peut plus faire action sur la tache');
         }

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TaskRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
 class Task
@@ -11,21 +12,27 @@ class Task
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('task')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('task')]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('task')]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Groups('task')]
     private ?int $priority = null;
 
     #[ORM\Column]
+    #[Groups('task')]
     private ?\DateTimeImmutable $startDate = null;
 
     #[ORM\Column]
+    #[Groups('task')]
     private ?\DateTimeImmutable $endDate = null;
 
     #[ORM\Column(nullable: true)]
@@ -42,6 +49,7 @@ class Task
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups('task')]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
@@ -49,6 +57,7 @@ class Task
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups('task')]
     private ?Status $status = null;
 
     public function getId(): ?int
@@ -199,5 +208,4 @@ class Task
 
         return $this;
     }
-
 }
