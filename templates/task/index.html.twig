@@ -10,8 +10,8 @@
 		<thead>
 			<tr>
 				<th>Id</th>
+				<th>Project</th>
 				<th>Title</th>
-				<th>Description</th>
 				<th>Priority</th>
 				<th>Start_date</th>
 				<th>End_date</th>
@@ -26,8 +26,8 @@
 			{% for task in tasks %}
 				<tr>
 					<td>{{ task.id }}</td>
+					<td>{{ task.project }}</td>
 					<td>{{ task.title }}</td>
-					<td>{{ task.description }}</td>
 					<td>{{ task.priority }}</td>
 					<td>{{ task.startDate ? task.startDate|date('Y-m-d H:i:s') : '' }}</td>
 					<td>{{ task.endDate ? task.endDate|date('Y-m-d H:i:s') : '' }}</td>
