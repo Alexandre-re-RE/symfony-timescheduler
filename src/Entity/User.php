@@ -128,7 +128,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
-        return [$this->role->getCode()];
+        return [];
     }
 
     public function setRole(?Role $role): self
