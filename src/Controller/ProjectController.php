@@ -8,7 +8,7 @@ use App\Entity\Task;
 use App\Entity\User;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
-use App\Repository\TaskRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -66,7 +66,7 @@ class ProjectController extends AbstractController
             'project' => $project->getId()
         ]);
 
-//        dd($taskAssignedToCurrentUser);
+        //        dd($taskAssignedToCurrentUser);
 
         return $this->render('project/show.html.twig', [
             'project' => $project,
@@ -100,5 +100,18 @@ class ProjectController extends AbstractController
         }
 
         return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route(path: '/kanban/{id}', name: 'app_project_tasks_kanban')]
+    public function kanban(Project $project, EntityManagerInterface $em)
+    {
+        /** @var \App\Repository\TaskRepository $taskRepo */
+        $taskRepo = $em->getRepository(Task::class);
+
+        $tasks = new ArrayCollection($taskRepo->findAllByProject($project));
+
+        return $this->json(compact('tasks'), 200, [], [
+            'groups' => ['task']
+        ]);
     }
 }

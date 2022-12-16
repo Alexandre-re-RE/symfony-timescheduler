@@ -42,6 +42,14 @@ class StatusController extends AbstractController
         ]);
     }
 
+    #[Route('/api', name: 'app_status_json', methods: ['GET'])]
+    public function getAll(StatusRepository $statusRepository)
+    {
+        return $this->json(['statuses' => $statusRepository->findAll()], 200, [], [
+            'groups' => ['status']
+        ]);
+    }
+
     #[Route('/{id}', name: 'app_status_show', methods: ['GET'])]
     public function show(Status $status): Response
     {
