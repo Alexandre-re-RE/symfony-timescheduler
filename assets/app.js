@@ -10,4 +10,4 @@ import './styles/app.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/dashboard.css'
 import 'fontawesome-free/css/all.min.css'
-
+import '../public/css/jkanban.min.css'
