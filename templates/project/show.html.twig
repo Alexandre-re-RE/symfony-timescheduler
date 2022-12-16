@@ -1,277 +1,196 @@
 {% extends 'base.html.twig' %}
+
 {% block stylesheets %}
-{{ parent() }}
- <style>
-      body {
-        font-family: "Lato";
-        margin: 0;
-        padding: 0;
-      }
+    {{ parent() }}
+    <style>
+        #kanban-project {
+            overflow-x: auto;
+            padding: 20px 0;
+        }
 
-      #myKanban {
-        overflow-x: auto;
-        padding: 20px 0;
-      }
+        .success {
+            background: #00b961;
+        }
 
-      .success {
-        background: #00b961;
-      }
+        .info {
+            background: #2a92bf;
+        }
 
-      .info {
-        background: #2a92bf;
-      }
+        .warning {
+            background: #f4ce46;
+        }
 
-      .warning {
-        background: #f4ce46;
-      }
+        .error {
+            background: #fb7d44;
+        }
 
-      .error {
-        background: #fb7d44;
-      }
-
-      .custom-button {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 7px 15px;
-        margin: 10px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-      }      
+        .custom-button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 7px 15px;
+            margin: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }      
     </style> 
-  {% endblock %}
+{% endblock %}
+
 {% block title %}Projet{% endblock %}
  
 {% block body %}
-    <div class="pt-4">
-        <h1>Projet</h1>
-        <div class="mb-2">
-            <a href="{{ path('app_project_index') }}" class="btn btn-outline-primary">Retour à la liste</a>
-            <a href="{{ path('app_project_edit', {'id': project.id}) }}" class="btn btn-outline-secondary">Modifier</a>
-            {{ include('project/_delete_form.html.twig') }}
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <th>#</th>
-                            <td>{{ project.id }}</td>
-                        </tr>
-                        <tr>
-                            <th>Nom</th>
-                            <td>{{ project.name }}</td>
-                        </tr>
-                        <tr>
-                            <th>Desription</th>
-                            <td>{{ project.description|nl2br }}</td>
-                        </tr>
-                        <tr>
-                            <th>Client</th>
-                            <td>{{ project.client.name }}</td>
-                        </tr>
-                        <tr>
-                            <th>Status</th>
-                            <td>{{ project.status.name }}</td>
-                        </tr>
-                        <tr>
-                            <th>Date de début</th>
-                            <td>{{ project.startDate ? project.startDate|date('Y-m-d H:i:s') : '' }}</td>
-                        </tr>
-                        <tr>
-                            <th>Date de fin</th>
-                            <td>{{ project.endDate ? project.endDate|date('Y-m-d H:i:s') : '' }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <h3>Vos tâche: </h3>
-
-        {% if tasks is not empty  %}
-            <ul>
-                {% for task in tasks %}
-                    <li>{{ task.title }}</li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>aucune tâche assiger pour le moment</p>
-        {% endif %}
-
+<div class="py-4">
+    <h4>Projet</h4>
+    <div class="mb-2">
+        <a href="{{ path('app_project_index') }}" class="btn btn-outline-primary">Retour à la liste</a>
+        <a href="{{ path('app_project_edit', {'id': project.id}) }}" class="btn btn-outline-secondary">Modifier</a>
+        {{ include('project/_delete_form.html.twig') }}
     </div>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <div class="card">
+        <div class="card-body">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>#</th>
+                        <td>{{ project.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ project.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Desription</th>
+                        <td>{{ project.description|nl2br }}</td>
+                    </tr>
+                    <tr>
+                        <th>Client</th>
+                        <td>{{ project.client.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>{{ project.status.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de début</th>
+                        <td>{{ project.startDate ? project.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de fin</th>
+                        <td>{{ project.endDate ? project.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr>
+    <h4>Vos tâches:</h4>
+    {% if tasks is not empty  %}
+        <table class="table">
+            <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td>{{ task.title }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-secondary">Aucune tâche assigné pour le moment</div>
+    {% endif %}
+    <hr>
+    <h4>Suivi des tâches:</h4>
+    <div class="d-flex justify-content-center align-items-center">
+      <div id="kanban-project"></div>
+    </div>
+</div>
+{% endblock %}
 
-    <title>Title</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/>
-      
-  </head>
-  <body>
-    <div id="myKanban"></div>
- 
+{% block javascripts %}
+    {{ parent() }}
     <script>
-      var KanbanTest = new jKanban({
-        element: "#myKanban",
-        gutter: "10px",
-        widthBoard: "450px",
-        itemHandleOptions:{
-          enabled: true,
-        },
-        click: function(el) {
-          console.log("Trigger on all items click!");
-        },
-        context: function(el, e) {
-          console.log("Trigger on all items right-click!");
-        },
-        dropEl: function(el, target, source, sibling){
-          console.log(target.parentElement.getAttribute('data-id'));
-          console.log(el, target, source, sibling)
-        },
-        buttonClick: function(el, boardId) {
-          console.log(el);
-          console.log(boardId);
-          // create a form to enter element
-          var formItem = document.createElement("form");
-          formItem.setAttribute("class", "itemform");
-          formItem.innerHTML =
-            '<div class="form-group"><textarea class="form-control" rows="2" autofocus></textarea></div><div class="form-group"><button type="submit" class="btn btn-primary btn-xs pull-right">Submit</button><button type="button" id="CancelBtn" class="btn btn-default btn-xs pull-right">Cancel</button></div>';
+        document.addEventListener('DOMContentLoaded', async () => {
+        
+            const statuses = await fetch('{{path('app_status_json')}}')
+                .then(res => res.json())
+                .then(res => res.statuses)
 
-          KanbanTest.addForm(boardId, formItem);
-          formItem.addEventListener("submit", function(e) {
-            e.preventDefault();
-            var text = e.target[0].value;
-            KanbanTest.addElement(boardId, {
-              title: text
-            });
-            formItem.parentNode.removeChild(formItem);
-          });
-          document.getElementById("CancelBtn").onclick = function() {
-            formItem.parentNode.removeChild(formItem);
-          };
-        },
-        itemAddOptions: {
-          enabled: true,
-          content: '+ Add New Card',
-          class: 'custom-button',
-          footer: true
-        },
-        boards: [
-          {
-            id: "_todo",
-            title: "To Do (Can drop item only in working)",
-            class: "info,good",
-            dragTo: ["_working"],
-            item: [
-              {
-                id: "_test_delete",
-                title: "Try drag this (Look the console)",
-                drag: function(el, source) {
-                  console.log("START DRAG: " + el.dataset.eid);
-                },
-                dragend: function(el) {
-                  console.log("END DRAG: " + el.dataset.eid);
-                },
-                drop: function(el) {
-                  console.log("DROPPED: " + el.dataset.eid);
+            const tasks = await fetch('{{path('app_project_tasks_kanban', {id: project.id})}}')
+                .then(res => res.json())
+                .then(res => res.tasks)
+
+            const colors = ['success', 'info', 'warning']
+
+            const boards = await Promise.all(statuses.map(async (sts) => {
+                return {
+                    id: `${sts.id}_${sts.code}`,
+                    title: sts.name,
+                    class: colors[Math.floor(Math.random() * colors.length)],
+                    item: [
+                        ...tasks.filter(task => task.status.id === sts.id).map(task => {
+                            return {
+                                ...task,
+                                status: `${task.status.id}_${task.status.code}`,
+                                user: task.user.username
+                            }
+                        })
+                    ]
                 }
-              },
-              {
-                title: "Try Click This!",
+            }))
+
+            const kanban = new jKanban({
+                element: "#kanban-project",
+                itemHandleOptions: {
+                    enabled: true,
+                },
                 click: function(el) {
-                  alert("click");
+                    console.log('Click item')
+                    console.log(Object.assign({}, el.dataset));
                 },
-                context: function(el, e){
-                  alert("right-click at (" + `${e.pageX}` + "," + `${e.pageX}` + ")")
+                dropEl: function(el, target, source, sibling) {
+                    console.log('Drop element')
+                    console.log(Object.assign({}, el.dataset))
                 },
-                class: ["peppe", "bello"]
-              }
-            ]
-          },
-          {
-            id: "_working",
-            title: "Working (Try drag me too)",
-            class: "warning",
-            item: [
-              {
-                title: "Do Something!"
-              },
-              {
-                title: "Run?"
-              }
-            ]
-          },
-          {
-            id: "_done",
-            title: "Done (Can drop item only in working)",
-            class: "success",
-            dragTo: ["_working"],
-            item: [
-              {
-                title: "All right"
-              },
-              {
-                title: "Ok!"
-              }
-            ]
-          }
-        ]
-      });
+                buttonClick: function(el, boardId) {
+                    console.log({el, boardId})
+                    // create a form to enter element
+                    const formItem = document.createElement("form");
+                    formItem.setAttribute("class", "itemform");
+                    formItem.innerHTML = `
+                        <div class="form-group">
+                            <textarea class="form-control" rows="2" autofocus></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-xs pull-right">Submit</button>
+                            <button type="button" id="CancelBtn" class="btn btn-default btn-xs pull-right">Cancel</button>
+                        </div>
+                    `;
 
-      var toDoButton = document.getElementById("addToDo");
-      toDoButton.addEventListener("click", function() {
-        KanbanTest.addElement("_todo", {
-          title: "Test Add"
+                    kanban.addForm(boardId, formItem);
+
+                    formItem.addEventListener("submit", function(e) {
+                        e.preventDefault();
+                        const text = e.target[0].value;
+                        kanban.addElement(boardId, {
+                            title: text
+                        });
+                        formItem.parentNode.removeChild(formItem);
+                    });
+
+                    document.getElementById("CancelBtn").onclick = function() {
+                        formItem.parentNode.removeChild(formItem);
+                    };
+                },
+                itemAddOptions: {
+                    enabled: true,
+                    content: '+ Add New Card',
+                    class: 'custom-button',
+                    footer: true
+                },
+                boards
+            });
         });
-      });
-
-      var toDoButtonAtPosition = document.getElementById("addToDoAtPosition");
-      toDoButtonAtPosition.addEventListener("click", function() {
-        KanbanTest.addElement("_todo", {
-          title: "Test Add at Pos"
-        }, 1);
-      });
-
-      var addBoardDefault = document.getElementById("addDefault");
-      addBoardDefault.addEventListener("click", function() {
-        KanbanTest.addBoards([
-          {
-            id: "_default",
-            title: "Kanban Default",
-            item: [
-              {
-                title: "Default Item"
-              },
-              {
-                title: "Default Item 2"
-              },
-              {
-                title: "Default Item 3"
-              }
-            ]
-          }
-        ]);
-      });
-
-      var removeBoard = document.getElementById("removeBoard");
-      removeBoard.addEventListener("click", function() {
-        KanbanTest.removeBoard("_done");
-      });
-
-      var removeElement = document.getElementById("removeElement");
-      removeElement.addEventListener("click", function() {
-        KanbanTest.removeElement("_test_delete");
-      });
-
-      var allEle = KanbanTest.getBoardElements("_todo");
-      allEle.forEach(function(item, index) {
-        //console.log(item);
-      });
     </script>
-
 {% endblock %}
 
