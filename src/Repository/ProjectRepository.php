@@ -70,11 +70,12 @@ class ProjectRepository extends ServiceEntityRepository
     public function findAllWithTasks()
     {
         return $this->createQueryBuilder('p')
-            ->select('p', 'tasks', 'u', 'client', 's')
-            ->leftJoin('p.tasks', 'tasks')
-            ->leftJoin('tasks.user', 'u')
-            ->leftJoin('p.client', 'client')
-            ->innerJoin('p.status', 's')
+            ->select('p', 'p_tasks', 't_user', 't_status', 'p_client', 'p_status')
+            ->leftJoin('p.tasks', 'p_tasks')
+            ->leftJoin('p.client', 'p_client')
+            ->innerJoin('p.status', 'p_status')
+            ->leftJoin('p_tasks.user', 't_user')
+            ->leftJoin('p_tasks.status', 't_status')
             ->getQuery()
             ->getResult();
     }
