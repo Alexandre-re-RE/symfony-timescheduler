@@ -17,17 +17,21 @@ class TaskType extends AbstractType
             ->add('description')
             ->add('priority')
             ->add('startDate', DateType::class, [
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                "input"  => "datetime_immutable"
             ])
             
             ->add('endDate', DateType::class, [
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                "input"  => "datetime_immutable"
             ])
             ->add('realStartDate', DateType::class, [
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                "input"  => "datetime_immutable"
             ])
             ->add('realEndDate', DateType::class, [
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                "input"  => "datetime_immutable"
             ])
             // ->add('createdAt')
             // ->add('updatedAt')

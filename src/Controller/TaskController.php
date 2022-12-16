@@ -30,6 +30,7 @@ class TaskController extends AbstractController
     {
         $task = new Task();
         $task->setCreatedAt(new DateTimeImmutable());
+        $task->setUpdatedAt(new DateTimeImmutable());
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
