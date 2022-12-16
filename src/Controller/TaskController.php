@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Status;
 use App\Entity\Task;
+use App\Entity\User;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
 use DateTime;
 use DateTimeImmutable;
+use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -81,5 +84,93 @@ class TaskController extends AbstractController
         }
 
         return $this->redirectToRoute('app_task_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/start/{id}', name: 'app_task_start', methods: ['POST'])]
+    public function start(Request $request, Task $task, ManagerRegistry $doctrine): Response
+    {
+        $statusRepository = $doctrine->getRepository(Status::class);
+        /** @var Status $statusStart */
+        $statusStart = $statusRepository->findOneBy([
+            'code' => 'START'
+        ]);
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $canMoveTaskStatus = $this->isTaskOfCurrentUserAndTaskNotFinish($task, $user);
+
+        if($canMoveTaskStatus) {
+            $task->setStatus($statusStart);
+            $doctrine->getManager()->flush();
+        } else {
+
+        }
+    }
+
+    #[Route('/pause/{id}', name: 'app_task_pause', methods: ['POST'])]
+    public function pause(Request $request, Task $task, ManagerRegistry $doctrine): Response
+    {
+        $statusRepository = $doctrine->getRepository(Status::class);
+        /** @var Status $statusStart */
+        $statusStart = $statusRepository->findOneBy([
+            'code' => 'PAUSE'
+        ]);
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $canMoveTaskStatus = $this->isTaskOfCurrentUserAndTaskNotFinish($task, $user);
+
+        if($canMoveTaskStatus) {
+            $task->setStatus($statusStart);
+            $doctrine->getManager()->flush();
+        } else {
+
+        }
+    }
+
+    #[Route('/finish/{id}', name: 'app_task_finish', methods: ['POST'])]
+    public function finish(Request $request, Task $task, ManagerRegistry $doctrine): Response
+    {
+        $statusRepository = $doctrine->getRepository(Status::class);
+        /** @var Status $statusStart */
+        $statusStart = $statusRepository->findOneBy([
+            'code' => 'FINISH'
+        ]);
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $canMoveTaskStatus = $this->isTaskOfCurrentUserAndTaskNotFinish($task, $user);
+
+        if($canMoveTaskStatus) {
+            $task->setStatus($statusStart);
+            $doctrine->getManager()->flush();
+        } else {
+
+        }
+    }
+
+    /**
+     * @param Task $task
+     * @param User $user
+     * @return bool
+     */
+    private function isTaskOfCurrentUserAndTaskNotFinish(Task $task, User $user)
+    {
+        $taskMouvable = true;
+
+        //check que la tache appartient bien a l'utilisateur actuel
+        if($task->getUser()->getId() !== $user->getId()) {
+            $taskMouvable = false;
+            dd('ce nest pas vôtre tâche');
+        }
+
+        //verification que la tache n'est pas terminer
+        if($task->getStatus()->getCode() === 'FINISH') {
+            $taskMouvable = false;
+            dd('on ne peut plus faire action sur la tache');
+        }
+
+        return $taskMouvable;
     }
 }
