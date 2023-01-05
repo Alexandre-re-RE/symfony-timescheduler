@@ -66,7 +66,12 @@
                     </tr>
                     <tr>
                         <th>Client</th>
-                        <td>{{ project.client.name }}</td>
+                        {% if project.client %}
+                            <td>{{ project.client.name }}</td>
+                        {% else %}
+                            <td>no customer linked</td>
+                        {% endif %}
+                        
                     </tr>
                     <tr>
                         <th>Status</th>
