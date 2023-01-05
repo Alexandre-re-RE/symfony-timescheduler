@@ -25,7 +25,7 @@ class ProjectController extends AbstractController
     public function index(ProjectRepository $projectRepository): Response
     {
         return $this->render('project/index.html.twig', [
-            'projects' => $projectRepository->findAllWithStatusAndClient(),
+            'projects' => $projectRepository->findAll(),
         ]);
     }
 
@@ -57,7 +57,7 @@ class ProjectController extends AbstractController
     {
         /** @var User $currentUser */
         $currentUser = $this->getUser();
-        $project = $projectRepository->findOneWithStatusAndClient($id);
+        $project = $projectRepository->findOneBy(['id' => $id]);
 
         $taskRepository = $doctrine->getRepository(Task::class);
 

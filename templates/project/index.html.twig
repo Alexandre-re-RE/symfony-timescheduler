@@ -28,7 +28,15 @@
                         <tr>
                             <td>{{ project.id }}</td>
                             <td>{{ project.name }}</td>
-                            <td>{{ project.client.name }}</td>
+                            
+                            <td>
+                            {% if project.client %}
+                                {{ project.client.name }}
+                            {% else %}
+                                pas de client liée
+                            {% endif %}
+                            </td>
+
                             <td>{{ project.status.name }}</td>
                             <td>{{ project.startDate ? project.startDate|date('Y-m-d H:i:s') : '' }}</td>
                             <td>{{ project.endDate ? project.endDate|date('Y-m-d H:i:s') : '' }}</td>
