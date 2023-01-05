@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Status;
 use App\Entity\Task;
 use App\Entity\User;
 use App\Form\TaskType;
+use App\Repository\StatusRepository;
 use App\Repository\TaskRepository;
 use DateTimeImmutable;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,6 +45,43 @@ class TaskController extends AbstractController
         return $this->renderForm('task/new.html.twig', [
             'task' => $task,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/change-status', name: 'app_task_change_status', methods: ['POST'])]
+    public function start(
+        TaskRepository $taskRepository,
+        StatusRepository $statusRepository,
+        EntityManagerInterface $em,
+        Request $request
+    ): Response {
+
+        $params = json_decode($request->getContent(), true);
+
+        $task = $taskRepository->find($params['id']);
+
+        $status = $statusRepository->find($params['status_id']);
+
+        if (!$status) {
+            return $this->json([
+                'message' => 'Status n\'a pas été trouvé'
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $checkStatus = $this->isAbleToChangeStatus($task, $user);
+
+        if ($checkStatus['status'] === false) {
+            return $this->json($checkStatus, Response::HTTP_UNAUTHORIZED);
+        }
+
+        $task->setStatus($status);
+        $em->flush();
+
+        return $this->json([
+            'message' => sprintf('La tâche: %s a désormais le status: %s', $task->getTitle(), $status->getName())
         ]);
     }
 
@@ -85,88 +122,30 @@ class TaskController extends AbstractController
         return $this->redirectToRoute('app_task_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/start/{id}', name: 'app_task_start', methods: ['POST'])]
-    public function start(Request $request, Task $task, ManagerRegistry $doctrine): Response
-    {
-        $statusRepository = $doctrine->getRepository(Status::class);
-        /** @var Status $statusStart */
-        $statusStart = $statusRepository->findOneBy([
-            'code' => 'START'
-        ]);
-
-        /** @var User $user */
-        $user = $this->getUser();
-
-        $canMoveTaskStatus = $this->isTaskOfCurrentUserAndTaskNotFinish($task, $user);
-
-        if ($canMoveTaskStatus) {
-            $task->setStatus($statusStart);
-            $doctrine->getManager()->flush();
-        } else {
-        }
-    }
-
-    #[Route('/pause/{id}', name: 'app_task_pause', methods: ['POST'])]
-    public function pause(Request $request, Task $task, ManagerRegistry $doctrine): Response
-    {
-        $statusRepository = $doctrine->getRepository(Status::class);
-        /** @var Status $statusStart */
-        $statusStart = $statusRepository->findOneBy([
-            'code' => 'PAUSE'
-        ]);
-        /** @var User $user */
-        $user = $this->getUser();
-
-        $canMoveTaskStatus = $this->isTaskOfCurrentUserAndTaskNotFinish($task, $user);
-
-        if ($canMoveTaskStatus) {
-            $task->setStatus($statusStart);
-            $doctrine->getManager()->flush();
-        } else {
-        }
-    }
-
-    #[Route('/finish/{id}', name: 'app_task_finish', methods: ['POST'])]
-    public function finish(Request $request, Task $task, ManagerRegistry $doctrine): Response
-    {
-        $statusRepository = $doctrine->getRepository(Status::class);
-        /** @var Status $statusStart */
-        $statusStart = $statusRepository->findOneBy([
-            'code' => 'FINISH'
-        ]);
-        /** @var User $user */
-        $user = $this->getUser();
-
-        $canMoveTaskStatus = $this->isTaskOfCurrentUserAndTaskNotFinish($task, $user);
-
-        if ($canMoveTaskStatus) {
-            $task->setStatus($statusStart);
-            $doctrine->getManager()->flush();
-        } else {
-        }
-    }
-
     /**
-     * @param Task $task
-     * @param User $user
-     * @return bool
+     * @param \App\Entity\Task $task
+     * @param \App\Entity\User $user
+     * @return array
      */
-    private function isTaskOfCurrentUserAndTaskNotFinish(Task $task, User $user)
+    private function isAbleToChangeStatus(Task $task, User $user)
     {
-        $taskMouvable = true;
-
-        //check que la tache appartient bien a l'utilisateur actuel
         if ($task->getUser()->getId() !== $user->getId()) {
-            $taskMouvable = false;
-            dd('ce nest pas vôtre tâche');
+            return [
+                'status' => false,
+                'message' => 'Cette tâche ne vous appartient pas'
+            ];
         }
 
-        //verification que la tache n'est pas terminer
         if ($task->getStatus()->getCode() === 'FINISH') {
-            $taskMouvable = false;
-            dd('on ne peut plus faire action sur la tache');
+            return [
+                'status' => false,
+                'message' => 'Cette tâche est déjà fini'
+            ];
         }
 
-        return $taskMouvable;
+        return [
+            'status' => true,
+            'message' => null
+        ];
     }
 }

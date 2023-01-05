@@ -111,6 +111,13 @@
     {{ parent() }}
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
+
+            const formatTask = (task) => {
+                return `
+                    <p><span class="badge text-bg-secondary">${task.user.username}</span></p>
+                    <p>${task.title}</p>
+                `
+            }
         
             const statuses = await fetch('{{path('app_status_json')}}')
                 .then(res => res.json())
@@ -131,6 +138,7 @@
                         ...tasks.filter(task => task.status.id === sts.id).map(task => {
                             return {
                                 ...task,
+                                title: formatTask(task),
                                 status: `${task.status.id}_${task.status.code}`,
                                 user: task.user.username
                             }
@@ -141,16 +149,30 @@
 
             const kanban = new jKanban({
                 element: "#kanban-project",
-                itemHandleOptions: {
+                /*itemHandleOptions: {
                     enabled: true,
-                },
+                },*/
                 click: function(el) {
                     console.log('Click item')
                     console.log(Object.assign({}, el.dataset));
                 },
-                dropEl: function(el, target, source, sibling) {
+                dropEl: async (el, target, source, sibling) => {
                     console.log('Drop element')
-                    console.log(Object.assign({}, el.dataset))
+                    const task = Object.assign({}, el.dataset)
+
+                    const status = await fetch('{{ path('app_task_change_status') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ 
+                            id: task.eid, 
+                            status_id: target.parentNode.dataset.id.split('_')[0]
+                        })
+                    })
+                    .then(res => res.ok)
+
+                    return status
                 },
                 buttonClick: function(el, boardId) {
                     console.log({el, boardId})
@@ -158,12 +180,12 @@
                     const formItem = document.createElement("form");
                     formItem.setAttribute("class", "itemform");
                     formItem.innerHTML = `
-                        <div class="form-group">
-                            <textarea class="form-control" rows="2" autofocus></textarea>
+                        <div class="form-group mb-2">
+                            <input class="form-control" autofocus>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-xs pull-right">Submit</button>
-                            <button type="button" id="CancelBtn" class="btn btn-default btn-xs pull-right">Cancel</button>
+                            <button type="button" class="btn btn-secondary btn-cancel">Cancel</button>
                         </div>
                     `;
 
@@ -175,16 +197,17 @@
                         kanban.addElement(boardId, {
                             title: text
                         });
-                        formItem.parentNode.removeChild(formItem);
+                        formItem.remove();
                     });
 
-                    document.getElementById("CancelBtn").onclick = function() {
-                        formItem.parentNode.removeChild(formItem);
-                    };
+                    formItem.querySelector(':scope .btn-cancel')
+                        .addEventListener('click', () => {
+                            formItem.remove();
+                    });
                 },
                 itemAddOptions: {
                     enabled: true,
-                    content: '+ Add New Card',
+                    content: '+ Ajouter une tâche',
                     class: 'custom-button',
                     footer: true
                 },
