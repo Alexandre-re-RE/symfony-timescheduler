@@ -1,73 +1,113 @@
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-    <div class="position-sticky pt-3">
-        <ul class="nav flex-column mb-2">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('dashboard') }}">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M22 20H11V13H22V20ZM9 20H2V13H9V20ZM22 11H2V4H22V11Z" fill="#2E3A59"></path>
-                    </svg>
-                    Dashboard
-                </a>
-                <a class="nav-link" href="{{ path('app_client_index') }}">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 20H4C2.93052 20.032 2.03642 19.1933 2 18.124V5.875C2.03641 4.80581 2.93068 3.96743 4 4H20C21.0693 3.96743 21.9636 4.80581 22 5.875V18.125C21.963 19.1939 21.0691 20.032 20 20ZM4 6V17.989L20 18V6.011L4 6ZM13.43 16H6C6.07353 15.1721 6.46534 14.4049 7.093 13.86C7.79183 13.1667 8.73081 12.7692 9.715 12.75C10.6992 12.7692 11.6382 13.1667 12.337 13.86C12.9645 14.4051 13.3563 15.1721 13.43 16ZM18 15H15V13H18V15ZM9.715 12C9.17907 12.0186 8.65947 11.8139 8.28029 11.4347C7.9011 11.0555 7.69638 10.5359 7.715 10C7.69668 9.46416 7.9015 8.94474 8.28062 8.56562C8.65974 8.1865 9.17916 7.98168 9.715 8C10.2508 7.98168 10.7703 8.1865 11.1494 8.56562C11.5285 8.94474 11.7333 9.46416 11.715 10C11.7336 10.5359 11.5289 11.0555 11.1497 11.4347C10.7705 11.8139 10.2509 12.0186 9.715 12ZM18 11H14V9H18V11Z" fill="#2E3A59"></path>
-                    </svg>
-                    Clients
-                </a>
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+	<div class="app-brand demo">
+		<a href="{{ path('dashboard') }}" class="app-brand-link">
+			<span class="app-brand-logo demo">
+				<svg width="25" viewbox="0 0 25 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+					<defs>
+						<path d="M13.7918663,0.358365126 L3.39788168,7.44174259 C0.566865006,9.69408886 -0.379795268,12.4788597 0.557900856,15.7960551 C0.68998853,16.2305145 1.09562888,17.7872135 3.12357076,19.2293357 C3.8146334,19.7207684 5.32369333,20.3834223 7.65075054,21.2172976 L7.59773219,21.2525164 L2.63468769,24.5493413 C0.445452254,26.3002124 0.0884951797,28.5083815 1.56381646,31.1738486 C2.83770406,32.8170431 5.20850219,33.2640127 7.09180128,32.5391577 C8.347334,32.0559211 11.4559176,30.0011079 16.4175519,26.3747182 C18.0338572,24.4997857 18.6973423,22.4544883 18.4080071,20.2388261 C17.963753,17.5346866 16.1776345,15.5799961 13.0496516,14.3747546 L10.9194936,13.4715819 L18.6192054,7.984237 L13.7918663,0.358365126 Z" id="path-1"></path>
+						<path d="M5.47320593,6.00457225 C4.05321814,8.216144 4.36334763,10.0722806 6.40359441,11.5729822 C8.61520715,12.571656 10.0999176,13.2171421 10.8577257,13.5094407 L15.5088241,14.433041 L18.6192054,7.984237 C15.5364148,3.11535317 13.9273018,0.573395879 13.7918663,0.358365126 C13.5790555,0.511491653 10.8061687,2.3935607 5.47320593,6.00457225 Z" id="path-3"></path>
+						<path d="M7.50063644,21.2294429 L12.3234468,23.3159332 C14.1688022,24.7579751 14.397098,26.4880487 13.008334,28.506154 C11.6195701,30.5242593 10.3099883,31.790241 9.07958868,32.3040991 C5.78142938,33.4346997 4.13234973,34 4.13234973,34 C4.13234973,34 2.75489982,33.0538207 2.37032616e-14,31.1614621 C-0.55822714,27.8186216 -0.55822714,26.0572515 -4.05231404e-15,25.8773518 C0.83734071,25.6075023 2.77988457,22.8248993 3.3049379,22.52991 C3.65497346,22.3332504 5.05353963,21.8997614 7.50063644,21.2294429 Z" id="path-4"></path>
+						<path d="M20.6,7.13333333 L25.6,13.8 C26.2627417,14.6836556 26.0836556,15.9372583 25.2,16.6 C24.8538077,16.8596443 24.4327404,17 24,17 L14,17 C12.8954305,17 12,16.1045695 12,15 C12,14.5672596 12.1403557,14.1461923 12.4,13.8 L17.4,7.13333333 C18.0627417,6.24967773 19.3163444,6.07059163 20.2,6.73333333 C20.3516113,6.84704183 20.4862915,6.981722 20.6,7.13333333 Z" id="path-5"></path>
+					</defs>
+					<g id="g-app-brand" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+						<g id="Brand-Logo" transform="translate(-27.000000, -15.000000)">
+							<g id="Icon" transform="translate(27.000000, 15.000000)">
+								<g id="Mask" transform="translate(0.000000, 8.000000)">
+									<mask id="mask-2" fill="white">
+										<use xlink:href="#path-1"></use>
+									</mask>
+									<use fill="#696cff" xlink:href="#path-1"></use>
+									<g id="Path-3" mask="url(#mask-2)">
+										<use fill="#696cff" xlink:href="#path-3"></use>
+										<use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-3"></use>
+									</g>
+									<g id="Path-4" mask="url(#mask-2)">
+										<use fill="#696cff" xlink:href="#path-4"></use>
+										<use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-4"></use>
+									</g>
+								</g>
+								<g id="Triangle" transform="translate(19.000000, 11.000000) rotate(-300.000000) translate(-19.000000, -11.000000) ">
+									<use fill="#696cff" xlink:href="#path-5"></use>
+									<use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-5"></use>
+								</g>
+							</g>
+						</g>
+					</g>
+				</svg>
+			</span>
+			<span class="app-brand-text demo menu-text fw-bolder ms-2">time.sh</span>
+		</a>
 
-                <a class="nav-link" href="{{ path('app_role_index') }}">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M22 17H13V15H22V17ZM11 17H2V15H11V17ZM15 13H2V11H15V13ZM15 9H2V7H15V9Z" fill="#2E3A59"></path>
-                    </svg>
-                    Rôles
-                </a>
+		<a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+			<i class="bx bx-chevron-left bx-sm align-middle"></i>
+		</a>
+	</div>
 
-                <a class="nav-link" href="{{ path('app_project_index') }}">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18 22H6L12 16L18 22ZM7 19H3C1.89543 19 1 18.1046 1 17V5C1 3.89543 1.89543 3 3 3H21C22.1046 3 23 3.89543 23 5V17C23 18.1046 22.1046 19 21 19H17V17H21V5H3V17H7V19Z" fill="#2E3A59"></path>
-                    </svg>
-                    Projets
-                </a>
+	<div class="menu-inner-shadow"></div>
 
-                <a class="nav-link" href="{{ path('app_status_index') }}">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7.5 21.5C5.95411 21.4935 4.59326 20.4795 4.145 19H2V17H4.145C4.6599 15.273 6.40204 14.2192 8.1707 14.565C9.93936 14.9108 11.1563 16.5431 10.9828 18.3369C10.8094 20.1307 9.30215 21.4995 7.5 21.5ZM7.5 16.5C6.67157 16.5 6 17.1716 6 18C6 18.8284 6.67157 19.5 7.5 19.5C8.32843 19.5 9 18.8284 9 18C9 17.1716 8.32843 16.5 7.5 16.5ZM22 19H12V17H22V19ZM16.5 15.5C14.6979 15.4995 13.1906 14.1307 13.0172 12.3369C12.8437 10.5431 14.0606 8.91084 15.8293 8.56503C17.598 8.21923 19.3401 9.27297 19.855 11H22V13H19.855C19.4067 14.4795 18.0459 15.4935 16.5 15.5ZM16.5 10.5C15.6716 10.5 15 11.1716 15 12C15 12.8284 15.6716 13.5 16.5 13.5C17.3284 13.5 18 12.8284 18 12C18 11.1716 17.3284 10.5 16.5 10.5ZM12 13H2V11H12V13ZM9.5 9.49999C7.69785 9.49953 6.19063 8.1307 6.01715 6.33692C5.84367 4.54314 7.06064 2.91084 8.8293 2.56503C10.598 2.21923 12.3401 3.27297 12.855 4.99999H22V6.99999H12.855C12.4065 8.47928 11.0458 9.4932 9.5 9.49999ZM9.5 4.49999C8.68198 4.5011 8.01568 5.15742 8.00223 5.97534C7.98878 6.79325 8.63315 7.47112 9.45069 7.49911C10.2682 7.52711 10.9575 6.89491 11 6.07799V6.36799V5.99999C11 5.17157 10.3284 4.49999 9.5 4.49999ZM5 6.99999H2V4.99999H5V6.99999Z" fill="#2E3A59"></path>
-                    </svg>
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                    <line x1="16" y1="17" x2="8" y2="17"></line>
-                    <polyline points="10 9 9 9 8 9"></polyline></svg>
-                    Status
-                </a>
+	<ul
+		class="menu-inner py-1">
+		<!-- Dashboard -->
+		<li class="menu-item {% if path('dashboard') == app.request.pathinfo %}active{% endif %}">
+			<a href="{{ path('dashboard') }}" class="menu-link">
+				<i class="menu-icon tf-icons bx bx-notification"></i>
+				<div>Dashboard</div>
+			</a>
+		</li>
 
-                <a class="nav-link" href="{{ path('app_task_index') }}">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 21H4C2.89543 21 2 20.1046 2 19V5C2 3.89543 2.89543 3 4 3H20C21.1046 3 22 3.89543 22 5V19C22 20.1046 21.1046 21 20 21ZM4 7V19H20V7H4ZM14.707 16.707L13.294 15.294L15.586 13L13.293 10.707L14.707 9.293L18.414 13L14.708 16.706L14.707 16.707ZM9.293 16.707L5.586 13L9.293 9.293L10.707 10.707L8.414 13L10.706 15.293L9.293 16.706V16.707Z" fill="#2E3A59"></path>
-                    </svg>
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                    <line x1="16" y1="17" x2="8" y2="17"></line>
-                    <polyline points="10 9 9 9 8 9"></polyline></svg>
-                    Tasks
-                </a>
+		<!-- Teams -->
+		<li class="menu-header small text-uppercase">
+			<span class="menu-header-text">Teams</span>
+		</li>
+		<li class="menu-item {% if path('app_user_index') == app.request.pathinfo %}active{% endif %}">
+			<a href="{{ path('app_user_index') }}" class="menu-link">
+				<i class="menu-icon tf-icons bx bx-user-pin"></i>
+				<div>Membres</div>
+			</a>
+		</li>
 
-                <a class="nav-link" href="{{ path('app_user_index') }}">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 3C6.23858 3 4 5.23858 4 8C4 10.7614 6.23858 13 9 13C11.7614 13 14 10.7614 14 8C14 5.23858 11.7614 3 9 3ZM6 8C6 6.34315 7.34315 5 9 5C10.6569 5 12 6.34315 12 8C12 9.65685 10.6569 11 9 11C7.34315 11 6 9.65685 6 8Z" fill="#2E3A59"></path>
-                        <path d="M16.9084 8.21828C16.6271 8.07484 16.3158 8.00006 16 8.00006V6.00006C16.6316 6.00006 17.2542 6.14956 17.8169 6.43645C17.8789 6.46805 17.9399 6.50121 18 6.5359C18.4854 6.81614 18.9072 7.19569 19.2373 7.65055C19.6083 8.16172 19.8529 8.75347 19.9512 9.37737C20.0496 10.0013 19.9987 10.6396 19.8029 11.2401C19.6071 11.8405 19.2719 12.3861 18.8247 12.8321C18.3775 13.2782 17.8311 13.6119 17.2301 13.8062C16.6953 13.979 16.1308 14.037 15.5735 13.9772C15.5046 13.9698 15.4357 13.9606 15.367 13.9496C14.7438 13.8497 14.1531 13.6038 13.6431 13.2319L13.6421 13.2311L14.821 11.6156C15.0761 11.8017 15.3717 11.9248 15.6835 11.9747C15.9953 12.0247 16.3145 12.0001 16.615 11.903C16.9155 11.8059 17.1887 11.639 17.4123 11.416C17.6359 11.193 17.8035 10.9202 17.9014 10.62C17.9993 10.3198 18.0247 10.0006 17.9756 9.68869C17.9264 9.37675 17.8041 9.08089 17.6186 8.82531C17.4331 8.56974 17.1898 8.36172 16.9084 8.21828Z" fill="#2E3A59"></path>
-                        <path d="M19.9981 21C19.9981 20.475 19.8947 19.9551 19.6938 19.47C19.4928 18.9849 19.1983 18.5442 18.8271 18.1729C18.4558 17.8017 18.0151 17.5072 17.53 17.3062C17.0449 17.1053 16.525 17.0019 16 17.0019V15C16.6821 15 17.3584 15.1163 18 15.3431C18.0996 15.3783 18.1983 15.4162 18.2961 15.4567C19.0241 15.7583 19.6855 16.2002 20.2426 16.7574C20.7998 17.3145 21.2417 17.9759 21.5433 18.7039C21.5838 18.8017 21.6217 18.9004 21.6569 19C21.8837 19.6416 22 20.3179 22 21H19.9981Z" fill="#2E3A59"></path>
-                        <path d="M16 21H14C14 18.2386 11.7614 16 9 16C6.23858 16 4 18.2386 4 21H2C2 17.134 5.13401 14 9 14C12.866 14 16 17.134 16 21Z" fill="#2E3A59"></path>
-                    </svg>
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                    <line x1="16" y1="17" x2="8" y2="17"></line>
-                    <polyline points="10 9 9 9 8 9"></polyline></svg>
-                    Users
-                </a>
-            </li>
-        </ul>
-    </div>
-</nav>
+		<!-- Projects -->
+		<li class="menu-header small text-uppercase">
+			<span class="menu-header-text">Projects</span>
+		</li>
+		<li class="menu-item {% if path('app_project_index') == app.request.pathinfo %}active{% endif %}">
+			<a href="{{ path('app_project_index') }}" class="menu-link">
+				<i class="menu-icon tf-icons bx bx-devices"></i>
+				<div>Projects</div>
+			</a>
+		</li>
+
+		<li class="menu-item {% if path('app_client_index') == app.request.pathinfo %}active{% endif %}">
+			<a href="{{path('app_client_index')}}" class="menu-link">
+				<i class="menu-icon tf-icons bx bx-money"></i>
+				<div>Customers</div>
+			</a>
+		</li>
+
+		<li class="menu-item {% if path('app_task_index') == app.request.pathinfo %}active{% endif %}">
+			<a href="{{ path('app_task_index') }}" class="menu-link">
+				<i class="menu-icon tf-icons bx bx-task"></i>
+				<div>Tasks</div>
+			</a>
+		</li>
+
+		<!-- Settings -->
+		<li class="menu-header small text-uppercase">
+			<span class="menu-header-text">Settings</span>
+		</li>
+		<li class="menu-item {% if path('app_role_index') == app.request.pathinfo %}active{% endif %}">
+			<a href="{{ path('app_role_index') }}" class="menu-link">
+				<i class="menu-icon tf-icons bx bx-user-plus"></i>
+				<div>Roles</div>
+			</a>
+		</li>
+
+		<li class="menu-item {% if path('app_status_index') == app.request.pathinfo %}active{% endif %}">
+			<a href="{{ path('app_status_index') }}" class="menu-link">
+				<i class="menu-icon tf-icons bx bx-purchase-tag-alt"></i>
+				<div>Status</div>
+			</a>
+		</li>
+	</ul>
+</aside>
+<!-- / Menu -->

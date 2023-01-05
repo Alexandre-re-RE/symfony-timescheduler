@@ -1,52 +1,95 @@
-{% extends 'layouts/default.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Task index
 {% endblock %}
 
 {% block body %}
-	<h1>Task index</h1>
+<div class="row">
+	<!-- Hoverable Table rows -->
+	<div class="card">
+		<div class="d-flex justify-content-between align-items-baseline">
+			<h5 class="card-header">All tasks</h5>
+			<a  href="{{ path('app_task_new') }}">Create new</a>
+		</div>
+		<div class="table">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Task</th>
+						<th>Project</th>
+						<th>Expectation</th>
+						<th>Reality</th>
+						<th>Priority</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody class="table-border-bottom-0">
+					{% for task in tasks %}
+						<tr>
+							<td>{{ task.title }}</td>
+							<td>{{ task.project }}</td>
+							<td> From {{ task.startDate ? task.startDate|date('d/m/Y H:i') : '' }} To {{ task.endDate ? task.endDate|date('d/m/Y H:i') : '' }}</td>
+							<td>From {{ task.realStartDate ? task.realStartDate|date('d/m/Y H:i') : '' }} To {{ task.realEndDate ? task.realEndDate|date('d/m/Y H:i') : '' }}</td>
+							<td>{{ task.priority }}</td>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Project</th>
-				<th>Title</th>
-				<th>Priority</th>
-				<th>Start_date</th>
-				<th>End_date</th>
-				<th>Real_start_date</th>
-				<th>Real_end_date</th>
-				<th>Created_at</th>
-				<th>Updated_at</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for task in tasks %}
-				<tr>
-					<td>{{ task.id }}</td>
-					<td>{{ task.project }}</td>
-					<td>{{ task.title }}</td>
-					<td>{{ task.priority }}</td>
-					<td>{{ task.startDate ? task.startDate|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ task.endDate ? task.endDate|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ task.realStartDate ? task.realStartDate|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ task.realEndDate ? task.realEndDate|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ task.createdAt ? task.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ task.updatedAt ? task.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td>
-						<a href="{{ path('app_task_show', {'id': task.id}) }}">show</a>
-						<a href="{{ path('app_task_edit', {'id': task.id}) }}">edit</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="11">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+							<td>
+								<div class="dropdown">
+									<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+										<i class="bx bx-dots-vertical-rounded"></i>
+									</button>
+									<div class="dropdown-menu">
+										<a class="dropdown-item" href="{{ path('app_task_show', {'id': task.id}) }}">
+											<i class="bx bx-show-alt me-1"></i>
+											Show</a>
+										<a class="dropdown-item" href="{{ path('app_task_edit', {'id': task.id}) }}">
+											<i class="bx bx-edit-alt me-1"></i>
+											Edit</a>
+										<a class="dropdown-item" href="javascript:void(0);">
+											<i class="bx bx-trash me-1"></i>
+											Delete</a>
+									</div>
+								</div>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="6">no tasks found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
 
-	<a href="{{ path('app_task_new') }}">Create new</a>
+		<!-- Basic Pagination -->
+		<nav class="d-flex justify-content-center mt-4" aria-label="Page navigation">
+			<ul class="pagination">
+				<li class="page-item first">
+					<a class="page-link" href="javascript:void(0);">
+						<i class="tf-icon bx bx-chevrons-left"></i>
+					</a>
+				</li>
+				<li class="page-item prev">
+					<a class="page-link" href="javascript:void(0);">
+						<i class="tf-icon bx bx-chevron-left"></i>
+					</a>
+				</li>
+				<li class="page-item active">
+					<a class="page-link" href="javascript:void(0);">1</a>
+				</li>
+				<li class="page-item next">
+					<a class="page-link" href="javascript:void(0);">
+						<i class="tf-icon bx bx-chevron-right"></i>
+					</a>
+				</li>
+				<li class="page-item last">
+					<a class="page-link" href="javascript:void(0);">
+						<i class="tf-icon bx bx-chevrons-right"></i>
+					</a>
+				</li>
+			</ul>
+		</nav>
+		<!--/ Basic Pagination -->
+
+	</div>
+
 {% endblock %}

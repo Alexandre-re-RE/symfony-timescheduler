@@ -1,31 +1,82 @@
-<!doctype html>
-<html lang="fr">
+<!DOCTYPE html>
+<html lang="fr" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
 	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>
-			{% block title %}App
-			{% endblock %}
-			- Timescheduler</title>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+
+		<title>Time.sh</title>
+
+		<meta name="description" content=""/>
+
+		<title>{% block title %}App {% endblock %}- Timescheduler</title>
+		
+		<!-- Favicon -->
+		<link
+		rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico"/>
+
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com"/>
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+		<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet"/>
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+		<!-- Page CSS -->
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
 
-
 		{% block javascripts %}
-		<script src={{ asset('/js/jkanban.min.js') }}></script> 
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
+
 	<body>
-		{{ include('elements/header.html.twig') }}
-		<div class="container-fluid">
-			<div class="row">
+		<!-- Layout wrapper -->
+		<div class="layout-wrapper layout-content-navbar">
+			<div class="layout-container">
+
 				{{ include('elements/sidebar.html.twig') }}
-				<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4"> {% block body %}{% endblock %}
-				</main>
+				
+				<!-- Layout container -->
+				<div class="layout-page">
+
+					{{ include('elements/header.html.twig') }}
+
+
+					<div class="content-wrapper">
+						
+						<!-- Content -->
+						<div class="container-xxl flex-grow-1 container-p-y">
+							{% block body %}{% endblock %}
+						</div>
+						<!-- / Content -->
+
+						<!-- Footer -->
+						<footer class="content-footer footer bg-footer-theme">
+							<div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+								<div class="mb-2 mb-md-0">
+									©
+									<script>
+										document.write(new Date().getFullYear());
+									</script>
+									, made with ❤️ by
+									<a href="https://github.com/" target="_blank" class="footer-link fw-bolder">Riveur</a>,
+									<a href="https://github.com/" target="_blank" class="footer-link fw-bolder">Frizzy</a>,
+									<a href="https://github.com/" target="_blank" class="footer-link fw-bolder">YamiSuke</a>,
+									<a href="https://github.com/" target="_blank" class="footer-link fw-bolder">Bbro</a>
+								</div>
+							</div>
+						</footer>
+						<!-- / Footer -->
+
+						<div class="content-backdrop fade"></div>
+					</div>
+				</div>
 			</div>
+
+			<!-- Overlay -->
+			<div class="layout-overlay layout-menu-toggle"></div>
 		</div>
+		<!-- / Layout wrapper -->
 	</body>
-		
-	</html>
+</html>

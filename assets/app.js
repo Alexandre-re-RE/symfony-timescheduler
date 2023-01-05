@@ -6,9 +6,23 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.css'
+import "./timesh/vendor/css/core.css"
+import "./timesh/vendor/css/theme-default.css"
+import "./timesh/css/demo.css"
+import "./timesh/vendor/libs/perfect-scrollbar/perfect-scrollbar.css"
+import "./timesh/vendor/libs/apex-charts/apex-charts.css"
+import "./timesh/vendor/js/helpers.js"
+import "./timesh/js/config.js"
+import "./timesh/vendor/libs/jquery/jquery.js"
+import "./timesh/vendor/libs/popper/popper.js"
+import "./timesh/vendor/js/bootstrap.js"
+import "./timesh/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"
+import "./timesh/vendor/js/menu.js"
+import "./timesh/js/main.js"
+import "./timesh/js/ui-popover.js"
+
+
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './styles/dashboard.css'
 import 'fontawesome-free/css/all.min.css'
 import '../public/css/jkanban.min.css'
 import 'toastr/build/toastr.css'
