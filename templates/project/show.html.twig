@@ -66,12 +66,7 @@
                     </tr>
                     <tr>
                         <th>Client</th>
-                        {% if project.client %}
-                            <td>{{ project.client.name }}</td>
-                        {% else %}
-                            <td>no customer linked</td>
-                        {% endif %}
-                        
+                        <td>{{ project.client ? project.client.name : 'Pas de client' }}</td>
                     </tr>
                     <tr>
                         <th>Status</th>
@@ -163,6 +158,9 @@
                 },
                 dropEl: async (el, target, source, sibling) => {
                     console.log('Drop element')
+                    toastr.options = {
+                        "positionClass": "toast-bottom-right"
+                    }
                     const task = Object.assign({}, el.dataset)
 
                     const status = await fetch('{{ path('app_task_change_status') }}', {
@@ -175,7 +173,19 @@
                             status_id: target.parentNode.dataset.id.split('_')[0]
                         })
                     })
-                    .then(res => res.ok)
+                    .then(res => res.json())
+                    .then(res => {
+                        if(undefined !== res.status) {
+                            toastr.info(res.message, 'Notification de tâche')
+                        } else {
+                            toastr.success(res.message, 'Notification de tâche')
+                        }
+                    })
+
+                    if(status === false) {
+                        console.log(status)
+                        kanban.drake.cancel(true)
+                    }
 
                     return status
                 },
@@ -221,4 +231,3 @@
         });
     </script>
 {% endblock %}
-
