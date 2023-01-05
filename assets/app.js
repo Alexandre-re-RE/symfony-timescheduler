@@ -11,3 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/dashboard.css'
 import 'fontawesome-free/css/all.min.css'
 import '../public/css/jkanban.min.css'
+import 'toastr/build/toastr.css'
+
+import toastr from 'toastr'
+window.toastr = toastr
