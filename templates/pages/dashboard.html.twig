@@ -6,80 +6,51 @@
     <div class="mt-4">
         <h1>Dashboard</h1>
         <hr>
-        <h2>Liste des projets</h2>
-        {% for project in projects %}
-            <div class="card mb-4">
-            <div class="card-header">
-                <span class="card-title">
-                    <i class="fas fa-project-diagram"></i> {{ project.name }}
-                </span>
-            </div>
-                <div class="card-body">
-                    <p>Détail du projet: </p>
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr>
-                                <th>Description du projet :</th>
-                                <td>
-                                    {% if project.description %}
-                                        {{ project.description|nl2br }}
-                                    {% else %}
-                                        Pas de description
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Début du projet prévu :</th>
-                                <td>{{ project.startDate ? project.startDate|date('d/m/Y H:i:s') : '' }}</td>
-                            </tr>
-                            <tr>
-                                <th>Fin du projet prévu :</th>
-                                <td>{{ project.startDate ? project.startDate|date('d/m/Y H:i:s') : '' }}</td>
-                            </tr>
-                            <tr>
-                                <th>Client :</th>
-                                <td>{{ project.client ? project.client.name : 'Pas de client' }}</td>
-                            </tr>
-                            <tr>
-                                <th>Status :</th>
-                                <td>{{ project.status.name }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <hr>
-                    <p>Tâches :</p>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Nom de la tâche</th>
-                                <th>Status</th>
-                                <th>Affecté à</th>
-                                <th>Priorité</th>
-                                <th>Date de début prévu</th>
-                                <th>Date de fin prévu</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {% if project.tasks is not empty %}
-                            {% for task in project.tasks %}
-                                <tr>
-                                    <td>{{ task.title }}</td>
-                                    <td>{{ task.status.name }}</td>
-                                    <td>{{ task.user.username }}</td>
-                                    <td>{{ task.priority }}</td>
-                                    <td>{{ task.startDate ? task.startDate|date('Y-m-d H:i:s') : 'Pas de date' }}</td>
-                                    <td>{{ task.endDate ? task.endDate|date('Y-m-d H:i:s') : 'Pas de date' }}</td>
-                                </tr>       
-                            {% endfor %}
-                        {% else %}
-                            <tr>
-                                <td colspan="6">Pas de tâches</td>
-                            </tr> 
-                        {% endif %}
-                        </tbody>
-                    </table>
+        <h2 class="mb-4">Projects</h2>
+        <div class="row">
+            {% for project in projects %}
+                <div class="col-lg-4 mb-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">
+                                <i class="fas fa-project-diagram"></i> {{ project.name }}
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped mb-0">
+                                <tbody>
+                                    <tr>
+                                        <th>Description du projet :</th>
+                                        <td>
+                                            {% if project.description %}
+                                                {{ project.description|nl2br }}
+                                            {% else %}
+                                                Pas de description
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Début du projet prévu :</th>
+                                        <td>{{ project.startDate ? project.startDate|date('d/m/Y H:i:s') : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Fin du projet prévu :</th>
+                                        <td>{{ project.startDate ? project.startDate|date('d/m/Y H:i:s') : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Client :</th>
+                                        <td>{{ project.client ? project.client.name : 'Pas de client' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Status :</th>
+                                        <td>{{ project.status.name }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
