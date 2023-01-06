@@ -36,6 +36,9 @@ class Status
     #[ORM\OneToMany(mappedBy: 'status', targetEntity: Task::class)]
     private Collection $tasks;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $color = null;
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
@@ -135,6 +138,18 @@ class Status
                 $task->setStatus(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }
