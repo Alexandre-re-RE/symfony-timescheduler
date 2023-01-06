@@ -85,20 +85,28 @@
         </div>
     </div>
     <hr>
-    <h4>Vos tâches:</h4>
-    {% if tasks is not empty  %}
-        <table class="table">
-            <tbody>
-                {% for task in tasks %}
-                    <tr>
-                        <td>{{ task.title }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <div class="alert alert-secondary">Aucune tâche assigné pour le moment</div>
-    {% endif %}
+    <h4>Assigned Task:</h4>
+
+    <div class="row bg-white rounded p-3">
+        <div class="col-6">
+            {% if tasks is not empty  %}
+                <div class="list-group">
+                    {% for task in tasks %}
+                        <label class="list-group-item">
+                            <input class="form-check-input me-1" readonlyvalue="" type="checkbox" {% if task.status.code == "FINISH" %} checked {% endif %} />
+                            {{ task.title }}
+                        </label>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-secondary">no task assignedt</div>
+            {% endif %}
+        </div>
+    </div>
+
+    
+
+    
     <hr>
     <h4>Suivi des tâches:</h4>
     <div class="d-flex justify-content-center align-items-center">
