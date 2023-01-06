@@ -16,6 +16,7 @@
 				<thead>
 					<tr>
 						<th>Task</th>
+						<th>Status</th>
 						<th>Project</th>
 						<th>Expectation</th>
 						<th>Reality</th>
@@ -27,6 +28,7 @@
 					{% for task in tasks %}
 						<tr>
 							<td>{{ task.title }}</td>
+							<td><span class="badge bg-label-{{ task.status.color }}">{{task.status.name}}</span></td>
 							<td>{{ task.project }}</td>
 							<td> From {{ task.startDate ? task.startDate|date('d/m/Y H:i') : '' }} To {{ task.endDate ? task.endDate|date('d/m/Y H:i') : '' }}</td>
 							<td>From {{ task.realStartDate ? task.realStartDate|date('d/m/Y H:i') : '' }} To {{ task.realEndDate ? task.realEndDate|date('d/m/Y H:i') : '' }}</td>
