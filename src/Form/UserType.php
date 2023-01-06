@@ -20,14 +20,6 @@ class UserType extends AbstractType
             ->add('username')
             ->add('password')
             ->add('email')
-            ->add('createdAt',DateType::class, [
-                'widget' => 'single_text',
-                "input"  => "datetime_immutable"
-            ])
-            ->add('updatedAt',DateType::class, [
-                'widget' => 'single_text',
-                "input"  => "datetime_immutable"
-            ])
             ->add('role')
         ;
     }

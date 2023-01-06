@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\RoleRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RoleRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Role
 {
     #[ORM\Id]
@@ -29,6 +31,17 @@ class Role
     {
         return $this->code;
     }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function updateTimestamps(): void
+    {
+        $this->setUpdatedAt(new DateTimeImmutable());
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTimeImmutable());
+        }
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\StatusRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: StatusRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Status
 {
     #[ORM\Id]
@@ -42,6 +44,16 @@ class Status
     public function __toString()
     {
         return $this->name;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function updateTimestamps(): void
+    {
+        $this->setUpdatedAt(new DateTimeImmutable());
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTimeImmutable());
+        }
     }
 
     public function getId(): ?int
