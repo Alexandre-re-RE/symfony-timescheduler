@@ -15,14 +15,6 @@ class StatusType extends AbstractType
         $builder
             ->add('code')
             ->add('name')
-            ->add('createdAt',DateType::class, [
-                'widget' => 'single_text',
-                "input"  => "datetime_immutable"
-            ])
-            ->add('updatedAt',DateType::class, [
-                'widget' => 'single_text',
-                "input"  => "datetime_immutable"
-            ])
         ;
     }
 
