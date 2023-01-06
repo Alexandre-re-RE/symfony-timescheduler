@@ -21,6 +21,9 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@fullcalendar/core": "^6.0.2",
+        "@fullcalendar/daygrid": "^6.0.2",
+        "@fullcalendar/interaction": "^6.0.2",
         "file-loader": "^6.2.0",
         "fontawesome-free": "^1.0.4",
         "toastr": "^2.1.4"

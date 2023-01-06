@@ -29,4 +29,9 @@ import '../public/css/jkanban.min.css'
 import 'toastr/build/toastr.css'
 
 import toastr from 'toastr'
+import { Calendar } from '@fullcalendar/core'
+import interactionPlugin from '@fullcalendar/interaction'
+import dayGridPlugin from '@fullcalendar/daygrid'
+
 window.toastr = toastr
+window.FullCalendar = { Calendar, interactionPlugin, dayGridPlugin }
