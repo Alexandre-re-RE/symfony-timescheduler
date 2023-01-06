@@ -20,6 +20,7 @@ import "./timesh/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"
 import "./timesh/vendor/js/menu.js"
 import "./timesh/js/main.js"
 import "./timesh/js/ui-popover.js"
+import "./timesh/vendor/css/pages/page-auth.css"
 
 
 import 'bootstrap/dist/css/bootstrap.min.css'
