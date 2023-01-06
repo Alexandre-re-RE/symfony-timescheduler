@@ -21,6 +21,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "file-loader": "^6.2.0",
         "fontawesome-free": "^1.0.4",
         "toastr": "^2.1.4"
     }
