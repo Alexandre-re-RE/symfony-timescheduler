@@ -27,6 +27,16 @@ class TaskController extends AbstractController
         ]);
     }
 
+    #[Route('/calendar', name: 'app_task_calendar', methods: ['GET'])]
+    public function calendar(TaskRepository $taskRepository): Response
+    {
+        return $this->json([
+            'tasks' => $taskRepository->findAll(),
+        ], Response::HTTP_OK, [], [
+            'groups' => ['task']
+        ]);
+    }
+
     #[Route('/new', name: 'app_task_new', methods: ['GET', 'POST'])]
     public function new(Request $request, TaskRepository $taskRepository): Response
     {
