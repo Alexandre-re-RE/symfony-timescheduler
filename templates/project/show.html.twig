@@ -135,13 +135,11 @@
                 .then(res => res.json())
                 .then(res => res.tasks)
 
-            const colors = ['success', 'info', 'warning']
-
             const boards = await Promise.all(statuses.map(async (sts) => {
                 return {
                     id: `${sts.id}_${sts.code}`,
                     title: sts.name,
-                    class: colors[Math.floor(Math.random() * colors.length)],
+                    class: 'bg-' + sts.color + ',text-black',
                     item: [
                         ...tasks.filter(task => task.status.id === sts.id).map(task => {
                             return {

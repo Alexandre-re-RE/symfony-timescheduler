@@ -17,7 +17,7 @@
 				<thead>
 					<tr>
 						<th>Project</th>
-                        <th>Status</th>
+						<th>Statut</th>
                         <th>Customer</th>
                         <th>Timing</th>
 
@@ -28,7 +28,7 @@
 					{% for project in projects %}
 						<tr>
 							<td>{{ project.name }}</td>
-                            <td>{{ project.status.name }}</td>
+							<td><span class="badge bg-label-{{ project.status.color }}">{{project.status.name}}</span></td>
 							<td class="text-center">{{ project.client ? project.client.name : '-' }}</td>
 							<td>From {{ project.startDate ? project.startDate|date('d/m/Y') : '' }} To {{ project.endDate ? project.endDate|date('d/m/Y') : '' }}</td>
 
@@ -45,9 +45,7 @@
 											<i class="bx bx-edit-alt me-1"></i>
 											Edit</a>
 										<a class="dropdown-item" href="javascript:void(0);">
-											<i class="bx bx-trash me-1"></i>
-											Delete
-                                            {{ include('project/_delete_form.html.twig', {icon: true}) }}
+                                            {{ include('project/_delete_form.html.twig') }}
                                         </a>
 									</div>
 								</div>

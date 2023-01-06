@@ -37,6 +37,7 @@ class Status
     private Collection $tasks;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['task', 'status'])]
     private ?string $color = null;
 
     public function __construct()
